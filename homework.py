@@ -11,7 +11,7 @@ def test_fill_practice_form():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
-    # Настройка Selene
+
     browser.set_driver(driver)
 
     browser().open('https://demoqa.com/automation-practice-form')
