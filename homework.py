@@ -11,36 +11,28 @@ def test_fill_practice_form():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
+    browser.config.driver = driver  # selene 1.x
+    browser.open('https://demoqa.com/automation-practice-form')
 
-    browser.set_driver(driver)
+    browser.element('#firstName').type('Виолетта')
+    browser.element('#lastName').type('Новикова')
+    browser.element('#userEmail').type('violetta.novikova@example.com')
+    browser.element('[for="gender-radio-2"]').click()
+    browser.element('#userNumber').type('9111234567')
+    browser.element('#dateOfBirthInput').click()
+    browser.element('.react-datepicker__month-select').select_option_by_text('July')
+    browser.element('.react-datepicker__year-select').select_option_by_text('2002')
+    browser.element('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').click()
+    browser.element('#subjectsInput').type('English').press_enter()
+    browser.element('[for="hobbies-checkbox-3"]').click()
+    browser.element('#uploadPicture').send_keys('resources/avatar.png')
+    browser.element('#currentAddress').type('г. Санкт-Петербург, ул. Ленина, д. 5')
+    browser.element('#react-select-3-input').type('Uttar Pradesh').press_enter()
+    browser.element('#react-select-4-input').type('Lucknow').press_enter()
+    browser.element('#submit').click()
 
-    browser().open('https://demoqa.com/automation-practice-form')
-
-    browser().element('#firstName').type('Виолетта')
-    browser().element('#lastName').type('Новикова')
-    browser().element('#userEmail').type('violetta.novikova@example.com')
-    browser().element('[for="gender-radio-2"]').click()
-    browser().element('#userNumber').type('9111234567')
-
-    browser().element('#dateOfBirthInput').click()
-    browser().element('.react-datepicker__month-select').select('July')
-    browser().element('.react-datepicker__year-select').select('2002')
-    browser().element('.react-datepicker__day--001:not(.react-datepicker__day--outside-month)').click()
-
-    browser().element('#subjectsInput').type('English').press_enter()
-    browser().element('[for="hobbies-checkbox-3"]').click()
-    browser().element('#uploadPicture').send_keys('resources/avatar.png')
-    browser().element('#currentAddress').type('г. Санкт-Петербург, ул. Ленина, д. 5')
-
-    browser().element('#state').click()
-    browser().element('#react-select-3-option-1').click()
-    browser().element('#city').click()
-    browser().element('#react-select-4-option-1').click()
-
-    browser().element('#submit').click()
-
-    browser().element('.modal-header').should(have.text('Thanks for submitting the form'))
-    browser().all('tbody tr').should(have.texts(
+    browser.element('.modal-header').should(have.text('Thanks for submitting the form'))
+    browser.all('tbody tr').should(have.texts(
         'Виолетта Новикова',
         'violetta.novikova@example.com',
         'Female',
@@ -53,7 +45,4 @@ def test_fill_practice_form():
         'Uttar Pradesh Lucknow'
     ))
 
-    browser().quit()
-
-
-
+    browser.quit()
